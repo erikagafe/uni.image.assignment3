@@ -2,21 +2,40 @@ function hough_line()
 clc; home;
 close all hidden
 
-Img = imread('input_ex3.jpg');
-I = (uint8(mean(Img, 3)));
-IM = mat2gray(I);
+    Img = imread('input_ex3.jpg');
+    I = (uint8(mean(Img, 3)));
+    K = mat2gray(I);
 
-thetas = deg2rad(-90:89);
-[width, height] = size(IM);
-diag_len = ceil(sqrt(width .* width + height .* height));
-rhos = linspace(-diag_len, diag_len, diag_len .* 2.0);
+    radius = 1;
+    [out, ix, iy] = guassfilter(radius, K);
+    imshow(out)
+ 
+    IM = im2bw(out,0.1);
+    imshow(IM)
 
-cos_t = cos(thetas);
-sin_t = sin(thetas);
-num_thetas = length(thetas);
+    %IM = im2bw(out,0.10);
+   
+    [width, height] = size(IM);
+    Pmax = ceil(sqrt(width .* width + height .* height));
+    thetas = -90:89;
+    Pind = -Pmax:Pmax;
+    H =  zeros(Pmax * 2 +1, 180);
 
-accumulator = zeros((2 * diag_len), num_thetas);
+    for i=1:width
+        for j=1:height
+            if(IM(i,j) == 1)
+                for t=-90:89;
+                    p = round((i .*cos(t.*pi/180)+ j.*sin(t.*pi/180)));
+                    p = find(Pind == p);
+                    thetai= find(thetas==t);
+                    H(p,thetai) =  H(p,thetai) +1;
+                end
+            end
+        end
+    end
 
-
+subplot(1,2,1);
+imagesc(thetas,Pind,H)
+colormap('gray')
 end
 
