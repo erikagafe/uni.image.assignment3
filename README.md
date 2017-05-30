@@ -9,6 +9,6 @@
 
 #### Image output 
 
-![](./output1.jpg?raw=true "Houghpeaks")
+![](./Output1.jpg?raw=true "Houghpeaks")
 
 ![](./output2.jpg?raw=true "Houghlines")
