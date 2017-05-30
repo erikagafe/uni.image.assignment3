@@ -30,10 +30,6 @@ function [out, ix, iy] = guassfilter(radius, Image)
            iy(yCenter, xCenter) = v;     
        end
     end
-%     subplot(1,3,1), imshow(out);
-%     subplot(1,3,2), imshow(ix);
-%     subplot(1,3,3), imshow(iy);
-        %plot(out)
 end
 
 
